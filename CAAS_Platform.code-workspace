@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "CAAS_Platform",
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "automatic"
+	}
+}
