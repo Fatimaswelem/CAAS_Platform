@@ -1,10 +1,10 @@
 package com.caas.backend.compiler;
 
 public class Token {
-    final TokenType type;
-    final String lexeme;  // The raw text (e.g., "let")
-    final Object literal; // The actual value (e.g., 10 or true)
-    final int line;       // For error reporting
+    public final TokenType type;
+    public final String lexeme;
+    public final Object literal;
+    public final int line;
 
     public Token(TokenType type, String lexeme, Object literal, int line) {
         this.type = type;

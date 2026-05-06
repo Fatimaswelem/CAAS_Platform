@@ -1,4 +1,5 @@
-package com.caas.backend.compiler;import java.util.List;
+package com.caas.backend.compiler;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class Node {
