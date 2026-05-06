@@ -1,6 +1,6 @@
 CREATE TABLE users (
     id          BIGINT AUTO_INCREMENT PRIMARY KEY,
-    email-hash    VARCHAR(64) UNIQUE NOT NULL,
+    email_hash    VARCHAR(64) UNIQUE NOT NULL,
     password_hash VARCHAR(60) NOT NULL,
     role        ENUM('student', 'instructor') DEFAULT 'student',
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
