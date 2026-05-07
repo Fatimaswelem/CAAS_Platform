@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # 1. Database Service (Anany - Role E)
+  # Mimics the Amazon RDS (MySQL) environment
+  db:
+    image: mysql:8.0
+    container_name: caas_db_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: caasdb
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - caas_network
+
+  # 2. Backend Service (Mostafa - Role C & Shaymaa/Fatima - Role A/F)
+  # Builds from your ./backend Dockerfile
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: caas_backend_api
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy # Ensures DB is ready before backend starts
+    environment:
+      # Database connection variables
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/caasdb?allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root_password
+      # Security variable for Sondous (Role B)
+      JWT_SECRET: ${JWT_SECRET_KEY:-temporary_local_secret_key}
+    networks:
+      - caas_network
+
+  # 3. Frontend Service (Waleed - Role D)
+  # Builds from the ./frontend Dockerfile
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: caas_web_ui
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      # API endpoint for the React app to communicate with the Backend API
+      - REACT_APP_API_URL=http://localhost:8080/api
+    networks:
+      - caas_network
+
+networks:
+  caas_network:
+    driver: bridge
