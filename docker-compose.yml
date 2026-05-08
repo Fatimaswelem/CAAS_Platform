@@ -39,7 +39,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root_password
       # Security variable for Sondous (Role B)
-      JWT_SECRET: ${JWT_SECRET_KEY:-temporary_local_secret_key}
+      JWT_SECRET: ${JWT_SECRET_KEY:-7E5F8A9B2C4D6E8F0A1B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4}
     networks:
       - caas_network
 

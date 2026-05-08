@@ -1,5 +1,9 @@
 package com.caas.backend.dto;
 
+import lombok.NoArgsConstructor;
+
+
+@NoArgsConstructor
 public class TokenDTO {
     public String type;
     public String lexeme;

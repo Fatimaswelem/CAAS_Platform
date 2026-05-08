@@ -1,4 +1,6 @@
 package com.caas.backend.compiler;
+import lombok.Getter;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -6,7 +8,7 @@ public abstract class Node {
     public abstract String toString();
     public abstract void prettyPrint(String indent, boolean isLast);
 }
-
+@Getter
 class LiteralNode extends Node {
     final Object value;
     LiteralNode(Object value) { this.value = value; }
@@ -16,6 +18,7 @@ class LiteralNode extends Node {
     }
 }
 
+@Getter
 class IdNode extends Node {
     final String name;
     IdNode(String name) { this.name = name; }
@@ -25,6 +28,7 @@ class IdNode extends Node {
     }
 }
 
+@Getter
 class ApplicationNode extends Node {
     final String operator;
     final List<Node> arguments;
@@ -34,9 +38,9 @@ class ApplicationNode extends Node {
         this.arguments = arguments;
     }
 
-    @Override public String toString() { 
+    @Override public String toString() {
         String args = arguments.stream().map(Node::toString).collect(Collectors.joining(" "));
-        return "(" + operator + " " + args + ")"; 
+        return "(" + operator + " " + args + ")";
     }
 
     @Override public void prettyPrint(String indent, boolean isLast) {
@@ -47,7 +51,7 @@ class ApplicationNode extends Node {
         }
     }
 }
-
+@Getter
 class LetNode extends Node {
     final String id;
     final Node value;

@@ -26,10 +26,10 @@ public class CompilerService {
             for (Token token : tokens) {
                 if (token.type != TokenType.EOF) {
                     response.tokens.add(new TokenDTO(
-                        token.type.toString(),
-                        token.lexeme,
-                        token.literal,
-                        token.line
+                            token.type.toString(),
+                            token.lexeme,
+                            token.literal,
+                            token.line
                     ));
                 }
             }
@@ -44,15 +44,15 @@ public class CompilerService {
             Parser parser = new Parser(tokens);
             List<Node> astNodes = parser.parse();
 
-            List<String> astStrings = new ArrayList<>();
-            for (Node node : astNodes) {
-                astStrings.add(node.toString());
-            }
-            response.ast = astStrings;
+            List<AstNodeDTO> astDTOs = AstConverter.convert(astNodes);
+            response.ast = astDTOs;
+            
         } catch (RuntimeException e) {
-            response.errors.add(new ErrorDTO("PARSER", e.getMessage()));
-        }
+            response.tokens = response.tokens != null ? response.tokens : new ArrayList<>();
+            response.errors.add(new ErrorDTO("PARSER", e.getMessage()));        }
 
         return response;
     }
+
+
 }
