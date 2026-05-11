@@ -1,3 +1,11 @@
+# IDE and OS files
 .DS_Store
-application.properties
-*.env, .idea/
+.idea/
+*.code-workspace
+
+# Environment variables
+*.env
+.env.*
+
+# Ignore the local properties file to prevent secret leaks
+backend/src/main/resources/application.properties
