@@ -52,7 +52,7 @@ services:
     container_name: caas_web_ui
     restart: always
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - backend
     environment:
